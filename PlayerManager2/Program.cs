@@ -59,10 +59,21 @@ namespace PlayerManager2 // >>> Change to PlayerManager2 for exercise 4 <<< //
                         InsertPlayer();
                         break;
                     case "2":
-                        playerList.Sort();
+                        // 1. Pergunta ao utilizador a ordem desejada
+                        bool isAscending = AskForOrder();
+
+                        // 2. Instancia o Comparador com a escolha do utilizador
+                        CompareByName nameComparer = new CompareByName(isAscending);
+
+                        // 3. Ordena a lista usando esse comparador específico
+                        playerList.Sort(nameComparer);
+
+                        // 4. Mostra a lista
                         ListPlayers(playerList);
                         break;
                     case "3":
+                        bool isFilterAscending = AskForOrder();
+                        playerList.Sort(new CompareByName(isFilterAscending));
                         ListPlayersWithScoreGreaterThan();
                         break;
                     case "4":
@@ -177,6 +188,19 @@ namespace PlayerManager2 // >>> Change to PlayerManager2 for exercise 4 <<< //
                     yield return p; 
                 }
             }
+        }
+
+        private bool AskForOrder()
+        {
+            Console.WriteLine("\nChoose name order:");
+            Console.WriteLine("1. Ascending (A-Z)");
+            Console.WriteLine("2. Descending (Z-A)");
+            Console.Write("Your choice: ");
+
+            string input = Console.ReadLine();
+
+            // Se o utilizador escolher "1", devolve true (crescente), caso contrário false (decrescente)
+            return input == "1";
         }
     }
 }
