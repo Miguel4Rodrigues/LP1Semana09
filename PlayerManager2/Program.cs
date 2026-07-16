@@ -59,6 +59,7 @@ namespace PlayerManager2 // >>> Change to PlayerManager2 for exercise 4 <<< //
                         InsertPlayer();
                         break;
                     case "2":
+                        playerList.Sort();
                         ListPlayers(playerList);
                         break;
                     case "3":
